@@ -32,3 +32,18 @@ adapter:
         agent:
           host: adapter # must match agent.cfg value. 'adapter' here refers to the adapter Docker service.
           port: 7890 # must match agent.cfg value
+
+    - id: opc # must match id in agent.xml
+      name: OPC # this must match name in agent.cfg and agent.xml
+      # see also device alias in relay section
+      # sources define the inputs to the cache.
+      sources:
+        - module: opc # module defines inputs and outputs with yaml files
+          driver: opc # adapter plugin - manages protocol and payload
+          connect:
+            # url: opc.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
+            url: opc.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
+      outputs:
+        agent:
+          host: adapter # must match agent.cfg value
+          port: 7891 # must match agent.cfg value
