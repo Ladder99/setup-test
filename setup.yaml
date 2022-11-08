@@ -16,44 +16,45 @@ adapter:
     sharedMqtt: # arbitrary name, use as device/source/connection string value
       driver: mqttProvider # corresponds to mqttProvider.js
       # url: mqtt://10.0.180.118:1883
-      url: mqtt://mosquitto:1883 #. local mosquitto for testing
+      # url: mqtt://mosquitto:1883 # local mosquitto for testing
+      url: mqtt://host.docker.internal:1883 # kepware for testing - host.docker.internal is the host machine
 
   devices:
-    # the host device polls the host os/cpu for load, temperature, disk for free space, etc.
-    - id: host # must match id in agent.xml
-      name: Host # this must match name in agent.cfg and agent.xml
-      # see also device alias in the relay section.
+    # # the host device polls the host os/cpu for load, temperature, disk for free space, etc.
+    # - id: host # must match id in agent.xml
+    #   name: Host # this must match name in agent.cfg and agent.xml
+    #   # see also device alias in the relay section.
 
-      # each device has one or more "sources", which use drivers that feed data to
-      # a key-value cache - when a key's value changes, the cache sends the new value
-      # to the Agent via SHDR.
-      sources:
-        # the host device driver defines a set of cache outputs in an outputs.yaml file.
-        # these map from the cache keys to the SHDR keys.
-        # it also defines a set of cache inputs in an inputs.yaml file.
-        # the driver itself is a node.js module that polls the host os data.
-        - module: host # module defines inputs and outputs with yaml files
-          driver: host # adapter plugin - manages protocol and payload
-      # each device the adapter connects to has its own tcp port to an agent,
-      # and the agent is configured to listen to that port in agent.cfg.
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value. 'adapter' here refers to the adapter Docker service.
-          port: 7890 # must match agent.cfg value
+    #   # each device has one or more "sources", which use drivers that feed data to
+    #   # a key-value cache - when a key's value changes, the cache sends the new value
+    #   # to the Agent via SHDR.
+    #   sources:
+    #     # the host device driver defines a set of cache outputs in an outputs.yaml file.
+    #     # these map from the cache keys to the SHDR keys.
+    #     # it also defines a set of cache inputs in an inputs.yaml file.
+    #     # the driver itself is a node.js module that polls the host os data.
+    #     - module: host # module defines inputs and outputs with yaml files
+    #       driver: host # adapter plugin - manages protocol and payload
+    #   # each device the adapter connects to has its own tcp port to an agent,
+    #   # and the agent is configured to listen to that port in agent.cfg.
+    #   outputs:
+    #     agent:
+    #       host: adapter # must match agent.cfg value. 'adapter' here refers to the adapter Docker service.
+    #       port: 7890 # must match agent.cfg value
 
-    # the opc device subscribes to the kepware opcua server, for testing
-    - id: opc # must match id in agent.xml
-      name: OPC # this must match name in agent.cfg and agent.xml
-      sources:
-        - module: opc # module defines inputs and outputs with yaml files
-          driver: opc # adapter plugin - manages protocol and payload
-          connect:
-            # url: opc.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
-            url: opc.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value
-          port: 7891 # must match agent.cfg value
+    # # the opc device subscribes to the kepware opcua server, for testing
+    # - id: opc # must match id in agent.xml
+    #   name: OPC # this must match name in agent.cfg and agent.xml
+    #   sources:
+    #     - module: opc # module defines inputs and outputs with yaml files
+    #       driver: opc # adapter plugin - manages protocol and payload
+    #       connect:
+    #         # url: opc.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
+    #         url: opc.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
+    #   outputs:
+    #     agent:
+    #       host: adapter # must match agent.cfg value
+    #       port: 7891 # must match agent.cfg value
 
     # the mqtt device subscribes to the mosquitto mqtt broker, for testing
     - id: mqtt # must match id in agent.xml
@@ -63,24 +64,23 @@ adapter:
       # a key-value cache - when a key's value changes, the cache sends the new value
       # to the Agent via SHDR.
       sources:
-        - module: mqtt # defines inputs and outputs with yaml files
+        - module: mqtt-test # defines inputs and outputs with yaml files
           driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
           connection: sharedMqtt # use shared mqtt connection - defined at top
 
           # dispatch incoming mqtt messages to this device when topic and payload matches.
           # note: if a topic isn't listed here, it won't get subscribed to!
           # topics must match those in inputs.yaml file.
-          # ids are from this gsheet -
-          # https://docs.google.com/spreadsheets/d/1dhdp7zwfNe5tcYVJ-zQqxCb_bp9XCLv13OLNcwzwFqU/edit?usp=sharing
           topics:
-            controller: true # always dispatch controller messages (birth/death) to this device
-            l99/B01000/evt/io:
-              id: 535172 # see also id in feedback
-              # a15: undefined #. would this work? ie keep from getting msgs when doing partcount reset?
-            l99/B01000/evt/vibration:
-              id: 479055
-            l99/B01000/evt/pressure:
-              id: 541790
+            iotgateway: true # always dispatch these messages to this device
+            # controller: true # always dispatch controller messages (birth/death) to this device
+            # l99/B01000/evt/io:
+            #   id: 535172 # see also id in feedback
+            #   # a15: undefined #. would this work? ie keep from getting msgs when doing partcount reset?
+            # l99/B01000/evt/vibration:
+            #   id: 479055
+            # l99/B01000/evt/pressure:
+            #   id: 541790
 
         # # this is another source for the device
         # # it monitors a dataitem for changes and sends feedback to the device.
