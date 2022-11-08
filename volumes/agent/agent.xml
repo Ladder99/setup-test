@@ -7,9 +7,10 @@
   <Devices>
 
     <!-- Host -->
-    <!-- id and name must match that in setup.yaml -->
+    <!-- id must match that in setup.yaml -->
+    <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- the uuid was generated from https://www.uuidgenerator.net/ -->
-    <Device id="host" name="Host" uuid="cb149555-2aaf-45f5-8381-1a11c6edbcdb">
+    <Device id="host" name="Host" uuid="b75d8515-a9b1-4493-9a1e-c84814bfc14a">
       <DataItems>
         <DataItem id="host-avail" name="availability" category="EVENT" type="AVAILABILITY" />
         <DataItem id="host-cond" name="condition" category="CONDITION" type="SYSTEM" />
@@ -23,6 +24,21 @@
         <DataItem id="host-diskuse" name="disk-use" category="SAMPLE" type="x:DISK" subType="x:USE" units="x:PERCENTAGE" />
         <DataItem id="host-diskavail" name="disk-available" category="SAMPLE" type="x:DISK" subType="x:AVAILABLE" units="x:BYTES" />
         <DataItem id="host-osplatform" name="os-platform" category="EVENT" type="OPERATING_SYSTEM" />
+      </DataItems>
+    </Device>
+
+
+    <!-- OPC -->
+    <!-- id must match that in setup.yaml -->
+    <!-- name must match that in setup.yaml and agent.cfg -->
+    <!-- uuid generated with https://www.uuidgenerator.net -->
+    <Device id="opc" name="OPC" uuid="bd612a3c-f4fe-4974-bb1c-92cc67180213">
+      <DataItems>
+        <DataItem id="opc-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="opc-cond" name="condition" category="CONDITION" type="SYSTEM" />
+        <DataItem id="opc-user1" category="EVENT" type="x:HELLO_WORLD" />
+        <DataItem id="opc-user2" category="SAMPLE" type="x:SOME_NUMBER" />
+        <DataItem id="opc-operator_name" category="EVENT" type="USER" subType="OPERATOR" />
       </DataItems>
     </Device>
 
