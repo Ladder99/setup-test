@@ -18,13 +18,15 @@ services:
     # image: ladder99/adapter:0.9.1-arm # for arm processors
     profiles:
       - base
-  # agent:
-  #   # see https://hub.docker.com/repository/docker/ladder99/agent
-  #   # note: default image is specified in ladder99/services/compose.yaml -
-  #   # currently it's a cross-platform image for agent 1.7.
-  #   # image: ladder99/agent:2.0.0.12_RC23-arm # for arm processors
-  #   profiles:
-  #     - base
+
+  agent:
+    # see https://hub.docker.com/repository/docker/ladder99/agent
+    # note: default image is specified in ladder99/services/compose.yaml -
+    # currently it's a cross-platform image for agent 1.7.
+    # image: ladder99/agent:2.0.0.12_RC23-arm # for arm processors
+    profiles:
+      - base
+
   # dozzle:
   #   profiles:
   #     - base
@@ -46,12 +48,14 @@ services:
   # pgadmin:
   #   profiles:
   #     - base
-  #. this must be specified here, even if relay is not needed
+
+  #. this must be specified here, even if relay is not used. not sure how to avoid...
   relay:
     # note: must specify build OR image here.
     build: ./relay # use ladder99/services/relay/Dockerfile
     # see https://hub.docker.com/repository/docker/ladder99/relay
     # image: ladder99/relay:0.9.1-arm # for arm processors
+
   #   profiles:
   #     - base
   # simulation:
