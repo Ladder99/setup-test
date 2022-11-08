@@ -27,7 +27,6 @@
       </DataItems>
     </Device>
 
-
     <!-- OPC -->
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
@@ -39,6 +38,18 @@
         <DataItem id="opc-user1" category="EVENT" type="x:HELLO_WORLD" />
         <DataItem id="opc-user2" category="SAMPLE" type="x:SOME_NUMBER" />
         <DataItem id="opc-operator_name" category="EVENT" type="USER" subType="OPERATOR" />
+      </DataItems>
+    </Device>
+
+    <!-- MQTT -->
+    <!-- id must match that in setup.yaml -->
+    <!-- name must match that in setup.yaml and agent.cfg -->
+    <!-- uuid generated with https://www.uuidgenerator.net -->
+    <Device id="mqtt" name="MQTT" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
+      <DataItems>
+        <DataItem id="mqtt-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="mqtt-cond" name="condition" category="CONDITION" type="SYSTEM" />
+        <DataItem id="mqtt-foo" category="EVENT" type="x:FOO" />
       </DataItems>
     </Device>
 
