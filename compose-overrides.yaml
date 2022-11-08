@@ -46,11 +46,12 @@ services:
   # pgadmin:
   #   profiles:
   #     - base
-  # relay:
-  #   # note: must specify build OR image here.
-  #   build: ./relay # use ladder99/services/relay/Dockerfile
-  #   # see https://hub.docker.com/repository/docker/ladder99/relay
-  #   # image: ladder99/relay:0.9.1-arm # for arm processors
+  #. this must be specified here, even if relay is not needed
+  relay:
+    # note: must specify build OR image here.
+    build: ./relay # use ladder99/services/relay/Dockerfile
+    # see https://hub.docker.com/repository/docker/ladder99/relay
+    # image: ladder99/relay:0.9.1-arm # for arm processors
   #   profiles:
   #     - base
   # simulation:
