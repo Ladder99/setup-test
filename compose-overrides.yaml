@@ -36,9 +36,11 @@ services:
   # meter:
   #   profiles:
   #     - base
+
   mosquitto:
     profiles:
       - base
+
   # portainer:
   #   profiles:
   #     - base
