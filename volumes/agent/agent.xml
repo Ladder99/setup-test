@@ -49,7 +49,21 @@
       <DataItems>
         <DataItem id="mqtt-avail" name="availability" category="EVENT" type="AVAILABILITY" />
         <DataItem id="mqtt-cond" name="condition" category="CONDITION" type="SYSTEM" />
-        <DataItem id="mqtt-foo" category="EVENT" type="x:FOO" />
+        <!-- user1 is a string -->
+        <DataItem id="mqtt-user1" category="EVENT" type="x:USER1" />
+      </DataItems>
+    </Device>
+
+    <!-- MQTT2 -->
+    <!-- id must match that in setup.yaml -->
+    <!-- name must match that in setup.yaml and agent.cfg -->
+    <!-- uuid generated with https://www.uuidgenerator.net -->
+    <Device id="mqtt2" name="MQTT2" uuid="697231dc-af05-487f-a923-6ed576f8d35d">
+      <DataItems>
+        <DataItem id="mqtt2-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="mqtt2-cond" name="condition" category="CONDITION" type="SYSTEM" />
+        <!-- user2 is a number -->
+        <DataItem id="mqtt2-user2" category="SAMPLE" type="x:USER2" />
       </DataItems>
     </Device>
 

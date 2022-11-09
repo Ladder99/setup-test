@@ -72,25 +72,36 @@ adapter:
           # note: if a topic isn't listed here, it won't get subscribed to!
           # topics must match those in inputs.yaml file.
           topics:
-            iotgateway: true # always dispatch these messages to this device
             # controller: true # always dispatch controller messages (birth/death) to this device
-            # l99/B01000/evt/io:
-            #   id: 535172 # see also id in feedback
-            #   # a15: undefined #. would this work? ie keep from getting msgs when doing partcount reset?
-            # l99/B01000/evt/vibration:
-            #   id: 479055
-            # l99/B01000/evt/pressure:
-            #   id: 541790
-
-        # # this is another source for the device
-        # # it monitors a dataitem for changes and sends feedback to the device.
-        # # see feedback section at the top for more settings.
-        # - driver: feedback # adapter plugin - manages protocol and payload
-        #   connection: sharedMqtt # the mqtt source to use, defined in providers section
-        #   id: 535172 # see also id in topics above
-        #   address: 142
+            iotgateway:
+              ID: SIMULATION EXAMPLES.FUNCTIONS.USER1
 
       outputs:
         agent:
           host: adapter # must match agent.cfg value
           port: 7892 # must match agent.cfg value
+
+    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
+    - id: mqtt2 # must match id in agent.xml
+      name: MQTT2 # this must match name in agent.cfg and agent.xml
+
+      # each device has one or more "sources", which use drivers that feed data to
+      # a key-value cache - when a key's value changes, the cache sends the new value
+      # to the Agent via SHDR.
+      sources:
+        - module: mqtt-test # defines inputs and outputs with yaml files
+          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+          connection: sharedMqtt # use shared mqtt connection - defined at top
+
+          # dispatch incoming mqtt messages to this device when topic and payload matches.
+          # note: if a topic isn't listed here, it won't get subscribed to!
+          # topics must match those in inputs.yaml file.
+          topics:
+            # controller: true # always dispatch controller messages (birth/death) to this device
+            iotgateway:
+              ID: SIMULATION EXAMPLES.FUNCTIONS.USER2
+
+      outputs:
+        agent:
+          host: adapter # must match agent.cfg value
+          port: 7893 # must match agent.cfg value
