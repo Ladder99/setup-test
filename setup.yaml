@@ -15,8 +15,9 @@ adapter:
   providers:
     sharedMqtt: # arbitrary name, use as device/source/connection string value
       driver: mqttProvider # corresponds to mqttProvider.js
-      url: mqtt://host.docker.internal:1883 # kepware for testing - host.docker.internal is the host machine
-      array: payload.VALUES # extract an array of payloads from the mqtt payload
+      url: mqtt://mosquitto:1883
+      # url: mqtt://host.docker.internal:1883 # kepware for testing - host.docker.internal is the host machine
+      # array: payload.VALUES # extract an array of payloads from the mqtt payload
 
   devices:
     # # the host device polls the host os/cpu for load, temperature, disk for free space, etc.
@@ -55,68 +56,69 @@ adapter:
     #       host: adapter # must match agent.cfg value
     #       port: 7891 # must match agent.cfg value
 
+    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
+    - id: mqtt # must match id in agent.xml
+      name: MQTT # this must match name in agent.cfg and agent.xml
+      # each device has one or more "sources", which use drivers that feed data to
+      # a key-value cache - when a key's value changes, the cache sends the new value
+      # to the Agent via SHDR.
+      sources:
+        - module: mqtt-test # defines inputs and outputs with yaml files
+          driver: mqtt # adapter plugin - manages protocol and payload - maps to 'drivers/mqtt.js'
+          connection:
+            # url: mqtt://host.docker.internal:1883 # host.docker.internal maps to localhost on host computer
+            url: mqtt://mosquitto:1883
+          # dispatch incoming mqtt messages to this device when topic and payload matches.
+          # note: if a topic isn't listed here, it won't get subscribed to!
+          # topics must match those in inputs.yaml file.
+          topics:
+            l99/test:
+              id: 1 # only want messages with this value for id
+      outputs:
+        agent:
+          host: adapter # must match agent.cfg value
+          port: 7892 # must match agent.cfg value
+
+
     # # the mqtt device subscribes to the mosquitto mqtt broker, for testing
-    # - id: mqtt # must match id in agent.xml
-    #   name: MQTT # this must match name in agent.cfg and agent.xml
+    # - id: mqtt1 # must match id in agent.xml
+    #   name: MQTT1 # this must match name in agent.cfg and agent.xml
     #   # each device has one or more "sources", which use drivers that feed data to
     #   # a key-value cache - when a key's value changes, the cache sends the new value
     #   # to the Agent via SHDR.
     #   sources:
     #     - module: mqtt-test # defines inputs and outputs with yaml files
-    #       driver: mqtt # adapter plugin - manages protocol and payload - maps to 'drivers/mqtt.js'
-    #       connection:
-    #         # url: mqtt://host.docker.internal:1883 # host.docker.internal maps to localhost on host computer
-    #         url: mqtt://mosquitto:1883
+    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       connection: sharedMqtt # use shared mqtt connection - defined at top
     #       # dispatch incoming mqtt messages to this device when topic and payload matches.
     #       # note: if a topic isn't listed here, it won't get subscribed to!
     #       # topics must match those in inputs.yaml file.
-    #       maps:
-    #         'SIMULATION EXAMPLES.FUNCTIONS.USER1': user1
-    #         'SIMULATION EXAMPLES.FUNCTIONS.USER2': user2
+    #       topics:
+    #         iotgateway:
+    #           ID: SIMULATION EXAMPLES.FUNCTIONS.USER1 # only want messages with this value for ID
     #   outputs:
     #     agent:
     #       host: adapter # must match agent.cfg value
-    #       port: 7892 # must match agent.cfg value
+    #       port: 7893 # must match agent.cfg value
 
-    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
-    - id: mqtt1 # must match id in agent.xml
-      name: MQTT1 # this must match name in agent.cfg and agent.xml
-      # each device has one or more "sources", which use drivers that feed data to
-      # a key-value cache - when a key's value changes, the cache sends the new value
-      # to the Agent via SHDR.
-      sources:
-        - module: mqtt-test # defines inputs and outputs with yaml files
-          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
-          connection: sharedMqtt # use shared mqtt connection - defined at top
-          # dispatch incoming mqtt messages to this device when topic and payload matches.
-          # note: if a topic isn't listed here, it won't get subscribed to!
-          # topics must match those in inputs.yaml file.
-          topics:
-            iotgateway:
-              ID: SIMULATION EXAMPLES.FUNCTIONS.USER1 # only want messages with this value for ID
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value
-          port: 7893 # must match agent.cfg value
-
-    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
-    - id: mqtt2 # must match id in agent.xml
-      name: MQTT2 # this must match name in agent.cfg and agent.xml
-      # each device has one or more "sources", which use drivers that feed data to
-      # a key-value cache - when a key's value changes, the cache sends the new value
-      # to the Agent via SHDR.
-      sources:
-        - module: mqtt-test # defines inputs and outputs with yaml files
-          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
-          connection: sharedMqtt # use shared mqtt connection - defined at top
-          # dispatch incoming mqtt messages to this device when topic and payload matches.
-          # note: if a topic isn't listed here, it won't get subscribed to!
-          # topics must match those in inputs.yaml file.
-          topics:
-            # controller: true # always dispatch controller messages (birth/death) to this device
-            iotgateway:
-              ID: SIMULATION EXAMPLES.FUNCTIONS.USER2
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value
-          port: 7894 # must match agent.cfg value
+    # # the mqtt device subscribes to the mosquitto mqtt broker, for testing
+    # - id: mqtt2 # must match id in agent.xml
+    #   name: MQTT2 # this must match name in agent.cfg and agent.xml
+    #   # each device has one or more "sources", which use drivers that feed data to
+    #   # a key-value cache - when a key's value changes, the cache sends the new value
+    #   # to the Agent via SHDR.
+    #   sources:
+    #     - module: mqtt-test # defines inputs and outputs with yaml files
+    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       connection: sharedMqtt # use shared mqtt connection - defined at top
+    #       # dispatch incoming mqtt messages to this device when topic and payload matches.
+    #       # note: if a topic isn't listed here, it won't get subscribed to!
+    #       # topics must match those in inputs.yaml file.
+    #       topics:
+    #         # controller: true # always dispatch controller messages (birth/death) to this device
+    #         iotgateway:
+    #           ID: SIMULATION EXAMPLES.FUNCTIONS.USER2
+    #   outputs:
+    #     agent:
+    #       host: adapter # must match agent.cfg value
+    #       port: 7894 # must match agent.cfg value
