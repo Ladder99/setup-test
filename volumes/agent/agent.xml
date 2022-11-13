@@ -10,6 +10,7 @@
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- the uuid was generated from https://www.uuidgenerator.net/ -->
+    <!-- uuids MUST be unique in this file, or agent will die without error in run mode -->
     <Device id="host" name="Host" uuid="b75d8515-a9b1-4493-9a1e-c84814bfc14a">
       <DataItems>
         <DataItem id="host-avail" name="availability" category="EVENT" type="AVAILABILITY" />
@@ -31,6 +32,7 @@
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- uuid generated with https://www.uuidgenerator.net -->
+    <!-- uuids MUST be unique in this file, or agent will die without error in run mode -->
     <Device id="opc" name="OPC" uuid="bd612a3c-f4fe-4974-bb1c-92cc67180213">
       <DataItems>
         <DataItem id="opc-avail" name="availability" category="EVENT" type="AVAILABILITY" />
@@ -45,6 +47,7 @@
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- uuid generated with https://www.uuidgenerator.net -->
+    <!-- uuids MUST be unique in this file, or agent will die without error in run mode -->
     <Device id="mqtt1" name="MQTT1" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
       <DataItems>
         <DataItem id="mqtt1-avail" name="availability" category="EVENT" type="AVAILABILITY" />
@@ -58,7 +61,8 @@
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- uuid generated with https://www.uuidgenerator.net -->
-    <Device id="mqtt2" name="MQTT2" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
+    <!-- uuids MUST be unique in this file, or agent will die without error in run mode -->
+    <Device id="mqtt2" name="MQTT2" uuid="a0e5b4d4-e585-4597-b30e-acd6820889a3">
       <DataItems>
         <DataItem id="mqtt2-avail" name="availability" category="EVENT" type="AVAILABILITY" />
         <DataItem id="mqtt2-cond" name="condition" category="CONDITION" type="SYSTEM" />
