@@ -64,10 +64,8 @@ adapter:
       # to the Agent via SHDR.
       sources:
         - module: mqtt-test # defines inputs and outputs with yaml files
-          driver: mqtt # adapter plugin - manages protocol and payload - maps to 'drivers/mqtt.js'
-          connection:
-            # url: mqtt://host.docker.internal:1883 # host.docker.internal maps to localhost on host computer
-            url: mqtt://mosquitto:1883
+          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+          connection: sharedMqtt
           # dispatch incoming mqtt messages to this device when topic and payload matches.
           # note: if a topic isn't listed here, it won't get subscribed to!
           # topics must match those in inputs.yaml file.
