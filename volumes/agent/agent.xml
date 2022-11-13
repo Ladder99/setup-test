@@ -41,16 +41,29 @@
       </DataItems>
     </Device>
 
-    <!-- MQTT -->
+    <!-- MQTT1 -->
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- uuid generated with https://www.uuidgenerator.net -->
-    <Device id="mqtt" name="MQTT" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
+    <Device id="mqtt1" name="MQTT1" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
       <DataItems>
-        <DataItem id="mqtt-avail" name="availability" category="EVENT" type="AVAILABILITY" />
-        <DataItem id="mqtt-cond" name="condition" category="CONDITION" type="SYSTEM" />
-        <DataItem id="mqtt-user1" category="EVENT" type="x:USER1" />
-        <DataItem id="mqtt-user2" category="SAMPLE" type="x:USER2" />
+        <DataItem id="mqtt1-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="mqtt1-cond" name="condition" category="CONDITION" type="SYSTEM" />
+        <DataItem id="mqtt1-user1" category="EVENT" type="x:USER1" />
+        <DataItem id="mqtt1-user2" category="SAMPLE" type="x:USER2" />
+      </DataItems>
+    </Device>
+
+    <!-- MQTT2 -->
+    <!-- id must match that in setup.yaml -->
+    <!-- name must match that in setup.yaml and agent.cfg -->
+    <!-- uuid generated with https://www.uuidgenerator.net -->
+    <Device id="mqtt2" name="MQTT2" uuid="0f8cf0d0-8527-4c64-b9f7-a1910c9e2059">
+      <DataItems>
+        <DataItem id="mqtt2-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="mqtt2-cond" name="condition" category="CONDITION" type="SYSTEM" />
+        <DataItem id="mqtt2-user1" category="EVENT" type="x:USER1" />
+        <DataItem id="mqtt2-user2" category="SAMPLE" type="x:USER2" />
       </DataItems>
     </Device>
 
