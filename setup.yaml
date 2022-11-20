@@ -15,32 +15,31 @@ adapter:
   providers:
     sharedMqtt: # arbitrary name, use as device/source/connection string value
       driver: mqttProvider # corresponds to mqttProvider.js
-      url: mqtt://mosquitto:1883
-      # url: mqtt://host.docker.internal:1883 # kepware for testing - host.docker.internal is the host machine
+      # url: mqtt://mosquitto:1883
+      url: mqtt://host.docker.internal:1883 # kepware for testing - host.docker.internal is the host machine
       # array: payload.VALUES # extract an array of payloads from the mqtt payload
 
   devices:
-    # # the host device polls the host os/cpu for load, temperature, disk for free space, etc.
-    # - id: host # must match id in agent.xml
-    #   name: Host # this must match name in agent.cfg and agent.xml
-    #   # see also device alias in the relay section.
-
-    #   # each device has one or more "sources", which use drivers that feed data to
-    #   # a key-value cache - when a key's value changes, the cache sends the new value
-    #   # to the Agent via SHDR.
-    #   sources:
-    #     # the host device driver defines a set of cache outputs in an outputs.yaml file.
-    #     # these map from the cache keys to the SHDR keys.
-    #     # it also defines a set of cache inputs in an inputs.yaml file.
-    #     # the driver itself is a node.js module that polls the host os data.
-    #     - module: host # module defines inputs and outputs with yaml files
-    #       driver: host # adapter plugin - manages protocol and payload
-    #   # each device the adapter connects to has its own tcp port to an agent,
-    #   # and the agent is configured to listen to that port in agent.cfg.
-    #   outputs:
-    #     agent:
-    #       host: adapter # must match agent.cfg value. 'adapter' here refers to the adapter Docker service.
-    #       port: 7890 # must match agent.cfg value
+    # the host device polls the host os/cpu for load, temperature, disk for free space, etc.
+    - id: host # must match id in agent.xml
+      name: Host # this must match name in agent.cfg and agent.xml
+      # see also device alias in the relay section.
+      # each device has one or more "sources", which use drivers that feed data to
+      # a key-value cache - when a key's value changes, the cache sends the new value
+      # to the Agent via SHDR.
+      sources:
+        # the host device driver defines a set of cache outputs in an outputs.yaml file.
+        # these map from the cache keys to the SHDR keys.
+        # it also defines a set of cache inputs in an inputs.yaml file.
+        # the driver itself is a node.js module that polls the host os data.
+        - module: host # module defines inputs and outputs with yaml files
+          driver: host # adapter plugin - manages protocol and payload
+      # each device the adapter connects to has its own tcp port to an agent,
+      # and the agent is configured to listen to that port in agent.cfg.
+      outputs:
+        agent:
+          host: adapter # must match agent.cfg value. 'adapter' here refers to the adapter Docker service.
+          port: 7890 # must match agent.cfg value
 
     # # the opc device subscribes to the kepware opcua server, for testing
     # - id: opc # must match id in agent.xml
@@ -56,44 +55,49 @@ adapter:
     #       host: adapter # must match agent.cfg value
     #       port: 7900 # must match agent.cfg value
 
-    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
-    - id: mqtt1 # must match id in agent.xml
-      name: MQTT1 # this must match name in agent.cfg and agent.xml
-      # each device has one or more "sources", which use drivers that feed data to
-      # a key-value cache - when a key's value changes, the cache sends the new value
-      # to the Agent via SHDR.
-      sources:
-        - module: mqtt-test # defines inputs and outputs with yaml files
-          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
-          connection: sharedMqtt
-          # dispatch incoming mqtt messages to this device when topic and payload matches.
-          # note: if a topic isn't listed here, it won't get subscribed to!
-          # topics must match those in inputs.yaml file.
-          topics:
-            l99/test:
-              id: 1 # only want messages with this value for id
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value
-          port: 7891 # must match agent.cfg value
+    # # the mqtt device subscribes to the mosquitto mqtt broker, for testing
+    # - id: mqtt1 # must match id in agent.xml
+    #   name: MQTT1 # this must match name in agent.cfg and agent.xml
+    #   # each device has one or more "sources", which use drivers that feed data to
+    #   # a key-value cache - when a key's value changes, the cache sends the new value
+    #   # to the Agent via SHDR.
+    #   sources:
+    #     - module: mqtt-test # defines inputs and outputs with yaml files
+    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       connection: sharedMqtt
+    #       # dispatch incoming mqtt messages to this device when topic and payload matches.
+    #       # note: if a topic isn't listed here, it won't get subscribed to!
+    #       # topics must match those in inputs.yaml file.
+    #       topics:
+    #         l99/test:
+    #           id: 1 # only want messages with this value for id
+    #   outputs:
+    #     agent:
+    #       host: adapter # must match agent.cfg value
+    #       port: 7891 # must match agent.cfg value
 
-    # the mqtt device subscribes to the mosquitto mqtt broker, for testing
-    - id: mqtt2 # must match id in agent.xml
-      name: MQTT2 # this must match name in agent.cfg and agent.xml
-      # each device has one or more "sources", which use drivers that feed data to
-      # a key-value cache - when a key's value changes, the cache sends the new value
-      # to the Agent via SHDR.
-      sources:
-        - module: mqtt-test # defines inputs and outputs with yaml files
-          driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
-          connection: sharedMqtt
-          # dispatch incoming mqtt messages to this device when topic and payload matches.
-          # note: if a topic isn't listed here, it won't get subscribed to!
-          # topics must match those in inputs.yaml file.
-          topics:
-            l99/test:
-              id: 2 # only want messages with this value for id
-      outputs:
-        agent:
-          host: adapter # must match agent.cfg value
-          port: 7892 # must match agent.cfg value
+    # # the mqtt device subscribes to the mosquitto mqtt broker, for testing
+    # - id: mqtt2 # must match id in agent.xml
+    #   name: MQTT2 # this must match name in agent.cfg and agent.xml
+    #   # each device has one or more "sources", which use drivers that feed data to
+    #   # a key-value cache - when a key's value changes, the cache sends the new value
+    #   # to the Agent via SHDR.
+    #   sources:
+    #     - module: mqtt-test # defines inputs and outputs with yaml files
+    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       connection: sharedMqtt
+    #       # dispatch incoming mqtt messages to this device when topic and payload matches.
+    #       # note: if a topic isn't listed here, it won't get subscribed to!
+    #       # topics must match those in inputs.yaml file.
+    #       topics:
+    #         l99/test:
+    #           id: 2 # only want messages with this value for id
+    #   outputs:
+    #     agent:
+    #       host: adapter # must match agent.cfg value
+    #       port: 7892 # must match agent.cfg value
+
+relay:
+  agents:
+    - alias: Haas # this is an identifier for the agent, used by the db - don't change once set!
+      url: http://10.1.10.182:8082
