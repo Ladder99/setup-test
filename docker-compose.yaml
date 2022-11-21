@@ -1,11 +1,10 @@
 # docker-compose overrides
-# overrides and extends the values in ladder99/services/compose.yaml
+# overrides and extends the values in ladder99/docker-compose.yaml
 
 # see other client repos for ideas for adding information to services.
 # typically, would add 'profiles: - base' to each service used.
 # that way, we know what is needed, and can start them all with
-#   ./l99 start <setup>
-# which runs the 'base' profile by default.
+#   l99 start base
 
 # version must be a string - need 3.8 for profiles
 version: "3.8"
@@ -13,7 +12,7 @@ version: "3.8"
 services:
   adapter:
     # note: must specify build OR image here, even if don't use adapter
-    build: ./adapter # use ladder99/services/adapter/Dockerfile
+    build: ./services/adapter # use ladder99/services/adapter/Dockerfile
     # see https://hub.docker.com/repository/docker/ladder99/adapter
     # image: ladder99/adapter:0.9.1-arm # for arm processors
     profiles:
@@ -28,15 +27,17 @@ services:
       - base
     # command: agent debug agent.cfg
 
-  # dozzle:
-  #   profiles:
-  #     - base
-  # grafana:
-  #   profiles:
-  #     - base
-  # meter:
-  #   profiles:
-  #     - base
+    # dozzle:
+    #   profiles:
+    #     - base
+
+    # grafana:
+    #   profiles:
+    #     - base
+
+    # meter:
+    #   profiles:
+    #     - base
 
   mosquitto:
     profiles:
@@ -45,24 +46,27 @@ services:
   # portainer:
   #   profiles:
   #     - base
+
   # postgres:
   #   profiles:
   #     - base
+
   # pgadmin:
   #   profiles:
   #     - base
 
   relay:
     # note: must specify build OR image here, even if don't use relay
-    build: ./relay # use ladder99/services/relay/Dockerfile
+    build: ./services/relay # use ladder99/services/relay/Dockerfile
     # see https://hub.docker.com/repository/docker/ladder99/relay
     # image: ladder99/relay:0.9.1-arm # for arm processors
+    #   profiles:
+    #     - base
 
-  #   profiles:
-  #     - base
-  # simulation:
-  #   profiles:
-  #     - base
-  # simulator:
-  #   profiles:
-  #     - base
+    # simulation:
+    #   profiles:
+    #     - base
+
+    # simulator:
+    #   profiles:
+    #     - base
