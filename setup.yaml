@@ -32,8 +32,8 @@ adapter:
         # these map from the cache keys to the SHDR keys.
         # it also defines a set of cache inputs in an inputs.yaml file.
         # the driver itself is a node.js module that polls the host os data.
-        - module: host # module defines inputs and outputs with yaml files
-          driver: host # adapter plugin - manages protocol and payload
+        - driver: host # adapter plugin - manages protocol and payload
+          schema: host # schema defines inputs and outputs with yaml files
       # each device the adapter connects to has its own tcp port to an agent,
       # and the agent is configured to listen to that port in agent.cfg.
       outputs:
@@ -45,8 +45,8 @@ adapter:
     # - id: opc # must match id in agent.xml
     #   name: OPC # this must match name in agent.cfg and agent.xml
     #   sources:
-    #     - module: opc # module defines inputs and outputs with yaml files
-    #       driver: opc # adapter plugin - manages protocol and payload
+    #     - driver: opc # adapter plugin - manages protocol and payload
+    #       schema: opc # schema defines inputs and outputs with yaml files
     #       connect:
     #         # url: opc.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
     #         url: opc.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
@@ -62,8 +62,8 @@ adapter:
     #   # a key-value cache - when a key's value changes, the cache sends the new value
     #   # to the Agent via SHDR.
     #   sources:
-    #     - module: mqtt-test # defines inputs and outputs with yaml files
-    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #     - driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       schema: mqtt-test # defines inputs and outputs with yaml files
     #       connection: sharedMqtt
     #       # dispatch incoming mqtt messages to this device when topic and payload matches.
     #       # note: if a topic isn't listed here, it won't get subscribed to!
@@ -83,8 +83,8 @@ adapter:
     #   # a key-value cache - when a key's value changes, the cache sends the new value
     #   # to the Agent via SHDR.
     #   sources:
-    #     - module: mqtt-test # defines inputs and outputs with yaml files
-    #       driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #     - driver: mqttSubscriber # adapter plugin - manages protocol and payload - maps to 'drivers/mqttSubscriber.js'
+    #       schema: mqtt-test # defines inputs and outputs with yaml files
     #       connection: sharedMqtt
     #       # dispatch incoming mqtt messages to this device when topic and payload matches.
     #       # note: if a topic isn't listed here, it won't get subscribed to!
