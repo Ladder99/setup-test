@@ -103,8 +103,8 @@ adapter:
         - driver: modbus # adapter plugin - manages protocol and payload
           schema: modbus # schema defines inputs and outputs with yaml files
           connect:
-            # url: modbus.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
-            url: modbus.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
+            # url: simulator # ladder99 simulator service
+            url: 10.1.10.130 # bunker ADAM
       outputs:
         agent:
           host: adapter # must match agent.cfg value
