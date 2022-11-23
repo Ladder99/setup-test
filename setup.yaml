@@ -97,6 +97,19 @@ adapter:
     #       host: adapter # must match agent.cfg value
     #       port: 7892 # must match agent.cfg value
 
+    - id: mb # must match id in agent.xml
+      name: Modbus # this must match name in agent.cfg and agent.xml
+      sources:
+        - driver: modbus # adapter plugin - manages protocol and payload
+          schema: modbus # schema defines inputs and outputs with yaml files
+          connect:
+            # url: modbus.tcp://simulator:4334/UA/LittleServer # ladder99 simulator service
+            url: modbus.tcp://host.docker.internal:49320 # for kepware on windows - host.docker.internal maps to localhost on host computer
+      outputs:
+        agent:
+          host: adapter # must match agent.cfg value
+          port: 7910 # must match agent.cfg value
+
 relay:
   agents:
     - alias: Haas # this is an identifier for the agent, used by the db - don't change once set!
