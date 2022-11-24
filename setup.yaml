@@ -103,8 +103,8 @@ adapter:
         - driver: modbus # adapter plugin - manages protocol and payload
           schema: modbus # schema defines inputs and outputs with yaml files
           connect:
-            # url: simulator # ladder99 simulator service
-            url: 10.1.10.130 # bunker ADAM
+            # host: simulator # ladder99 simulator service
+            host: 10.1.10.130 # bunker ADAM
       outputs:
         agent:
           host: adapter # must match agent.cfg value
