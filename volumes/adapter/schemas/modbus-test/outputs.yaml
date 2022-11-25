@@ -28,6 +28,7 @@
 
 outputs:
   - key: avail
+  - key: pcgood
 
   # - key: user1
   # - key: user2

@@ -97,11 +97,11 @@ adapter:
     #       host: adapter # must match agent.cfg value
     #       port: 7892 # must match agent.cfg value
 
-    - id: mb # must match id in agent.xml
-      name: Modbus # this must match name in agent.cfg and agent.xml
+    - id: adam # must match id in agent.xml
+      name: ADAM # this must match name in agent.cfg and agent.xml
       sources:
         - driver: modbus # adapter plugin - manages protocol and payload
-          schema: modbus # schema defines inputs and outputs with yaml files
+          schema: modbus-test # schema defines inputs and outputs with yaml files
           connect:
             # host: simulator # ladder99 simulator service
             host: 10.1.10.130 # bunker ADAM

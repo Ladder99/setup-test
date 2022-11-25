@@ -71,15 +71,15 @@
       </DataItems>
     </Device>
 
-    <!-- Modbus -->
+    <!-- ADAM -->
     <!-- id must match that in setup.yaml -->
     <!-- name must match that in setup.yaml and agent.cfg -->
     <!-- uuid generated with https://www.uuidgenerator.net -->
     <!-- uuids MUST be unique in this file, or agent will die without error in run mode -->
-    <Device id="mb" name="Modbus" uuid="3cb38a87-5655-4b4f-871b-efe1f6a1d92c">
+    <Device id="adam" name="ADAM" uuid="3cb38a87-5655-4b4f-871b-efe1f6a1d92c">
       <DataItems>
-        <DataItem id="mb-avail" name="availability" category="EVENT" type="AVAILABILITY" />
-        <!-- <DataItem id="mb-cond" name="condition" category="CONDITION" type="SYSTEM" /> -->
+        <DataItem id="adam-avail" name="availability" category="EVENT" type="AVAILABILITY" />
+        <DataItem id="adam-pcgood" category="SAMPLE" type="x:PCGOOD" />
       </DataItems>
     </Device>
 
