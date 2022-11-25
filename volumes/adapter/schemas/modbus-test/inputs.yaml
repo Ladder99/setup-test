@@ -1,12 +1,12 @@
-# define inputs to cache from opc server
+# define inputs from modbus to cache
 
-# this file is parsed by the adapter driver services/adapter/src/drivers/opc.js.
+# this file is parsed by the adapter driver services/adapter/src/drivers/modbus.js.
 # see outputs.yaml for outputs from cache to mtconnect agent.
 
 # for each input below,
-# key forms the cache id, eg 'user1' => 'opc-user1', where opc is deviceId.
-# nodeId is the opc node id to subscribe to.
-# decimals is the number of decimal places to round the value to. optional.
+# key forms the cache id, eg 'user1' => 'adam-user1', where adam is deviceId.
+# address is the holding register address
+# count is the number of addresses to read (1 or 2), default is 1
 
 inputs:
   - key: pcgood
