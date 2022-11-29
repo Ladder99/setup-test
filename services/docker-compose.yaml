@@ -7,14 +7,11 @@
 #   l99 start base
 
 # version must be a string - need 3.8 for profiles
-version: "3.8"
+version: '3.8'
 
 services:
   adapter:
-    # note: must specify build OR image here, even if don't use adapter
-    build: ./adapter # use ladder99/services/adapter/Dockerfile
-    # see https://hub.docker.com/repository/docker/ladder99/adapter
-    # image: ladder99/adapter:0.9.1-arm # for arm processors
+    build: ./adapter # use ladder99/services/adapter/Dockerfile - must run 'l99 start --offline'
     profiles:
       - base
 
@@ -56,10 +53,7 @@ services:
   #     - base
 
   relay:
-    # note: must specify build OR image here, even if don't use relay
-    build: ./relay # use ladder99/services/relay/Dockerfile
-    # see https://hub.docker.com/repository/docker/ladder99/relay
-    # image: ladder99/relay:0.9.1-arm # for arm processors
+    build: ./relay # use ladder99/services/relay/Dockerfile - must run 'l99 start --offline'
     #   profiles:
     #     - base
 
